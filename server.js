@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("MongoDB error:", err));
 
@@ -15,4 +15,6 @@ app.get("/", (req, res) => {
   res.send("Server OK + MongoDB connected");
 });
 
+// Login
+app.use("/api/auth", require("./routes/auth"));
 app.listen(3000, () => console.log("Server running http://localhost:3000"));
